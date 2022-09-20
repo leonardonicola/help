@@ -1,138 +1,166 @@
+/* FALA DEV! Dei uma boa ajeitada no seu código CSS e HTML,
+deixei anotações espalhadas em algumas modificações (as mais importantes),
+cabe dar aquela revisada e estudar mais sobre position e flexbox depois!
+
+HAPPY HACKING!*/
+
+
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat Alternates", sans-serif;
 }
 
 header {
-    background-color: #262626;
-}
-
-li {
-    list-style: none;
-    font-family: 'Montserrat Alternates', sans-serif;
-}
-
-a {
-    color: wheat;
-    text-decoration: none;
+  position: fixed;
+  width: 100%;
 }
 
 .navbar {
-    min-height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
+  min-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
 }
 
 .nav-menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 60px;
+  display: flex;
+  width: 25%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
 }
 
 .nav-branding {
-    font-size: 2rem;
-}
+  font-size: 2rem;
+}   
 
 .nav-link {
-    transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .nav-link:hover {
-    color: palevioletred;
+  color: #d87093;
 }
 
 .hamburger {
-    display: none;
-    cursor: pointer;
+  display: none;
+  cursor: pointer;
 }
 
 .bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    transition: all 0.4s ease-in-out;
-    background-color: wheat;
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.4s ease-in-out;
+  background-color: #f5deb3;
 }
 
-@media(max-width:768px) {
-    .hamburger {
-        display: block;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        gap: 0;
-        flex-direction: column;
-        background-color: #262626;
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-    }
-
-    .nav-item {
-        margin: 16px 0;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
+li {
+  list-style: none;
 }
 
+a {
+  color: #f5deb3;
+  text-decoration: none;
+}
 /* Articles */
 
-header {
-    opacity: 0.9;
-}
+/* ORIGEM DO PROBLEMA - não se utiliza opacity para fazer um elemento transparente
+pois isso afeta no z-index do mesmo. elementos com maior opacidade tendem a ficar
+na frente, portanto, utilize da propriedade RGBA (red,green,blue,opacity) para
+fazer um elemento transparente*/
 
-article {
-    font-family: 'Montserrat Alternates', sans-serif;
-    background-color: #262626;
-    opacity: 0.9;
+main {
+  padding: 100px 0;
+  min-height: 100%;
+  background-color: rgba(38, 38, 38, 0.9);
 }
 
 article h1 {
-    color: wheat;
-    margin-left: 40px;
-    padding: 20px;
+  color: #f5deb3;
+  margin-left: 40px;
+  padding: 20px;
 }
 
 article h3 {
-    color: beige;
-    margin: 0 25px;
-    padding: 40px;
+  color: #f5f5dc;
+  margin: 0 25px;
+  padding: 40px;
 }
 
 article td tr {
-    color: beige;
+  color: #f5f5dc;
 }
 
 body {
-    background-image: url(/add/mac.png);
-    background-position: top center;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-color: black;
+  height: 100vh;
+  background-image: url(/add/mac.png);
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* utilize sempre RGBA ou HEX para declarar cor */
+  background-color: #000;
 }
 
 .nav-branding img {
-    max-width: 60px;
+  max-width: 60px;
+}
+
+/* MEDIA QUERY NUNCA PODE SER SETADO ANTES DOS OUTROS ELEMENTOS,
+POIS O ESTILO NÃO SERÁ APLICADO */
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* faz mais sentido a navbar vir do lado onde está o hamburguer!
+    portanto, alterei o left para right */
+
+  .nav-menu {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    bottom: 0;
+    gap: 0;
+    height: 100vh;
+    background-color: #262626;
+    width: 100%;
+    /* alteração no transition para ficar mais clean */
+    transition: all 0.3s ease;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-size: 3em;
+  }
+
+  .active {
+    right: 0;
+  }
 }
